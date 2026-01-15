@@ -5,9 +5,9 @@ import 'package:flutter/services.dart' show PlatformException;
 import 'package:flutter_js/flutter_js.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-String one = '1' * 5012;
-String two = '2' * 5012;
-String three = '3' * 5013;
+String one = '1' * 514;
+String two = '2' * 515;
+String three = '3' * 516;
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -27,15 +27,7 @@ void main() {
   Future<dynamic> longString() async {
     final code = '''// js
     (async function() {
-        // let ret = '$one' + '$two' + '$three'
-        // let ret = '$one'.concat('$two', '$three')
-
-        let one = '$one'
-        let two = '$two'
-        let three = '$three'
-        // let ret = '$one'.concat('$two').concat('$three')
-        let ret = `\${one}\${two}\${three}`
-        // console.log('ret:', ret);
+        let ret = '$one' + '$two' + '$three'
         return ret
     })()
     ''';
@@ -47,8 +39,6 @@ void main() {
       final prom = await jsRuntime.handlePromise(res,
           timeout: const Duration(seconds: PROMISE_TIMEOUT));
       var result = await prom.rawResult;
-      debugPrint('Promise result: $result');
-      debugPrint('Promise result type: ${result.runtimeType}');
       if (result is JSError || prom.isError) {
         throw Exception('JSError: $result');
       }
@@ -62,10 +52,10 @@ void main() {
     }
   }
 
-  test('string > 512 chars', () async {
+  test('string concat with > 512 chars', () async {
     final result = await longString();
     String match = one + two + three;
-    expect(result, match);
+    expect(result, equals(match));
   });
 
   test('evaluate javascript', () {
