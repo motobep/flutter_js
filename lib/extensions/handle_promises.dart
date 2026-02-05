@@ -7,7 +7,7 @@ const REGISTER_PROMISE_FUNCTION = 'FLUTTER_NATIVEJS_REGISTER_PROMISE';
 
 extension HandlePromises on JavascriptRuntime {
   enableHandlePromises() {
-    final fnRegisterPromise = evaluate(""" 
+    final fnRegisterPromise = evaluate("""// js
      var FLUTTER_NATIVEJS_PENDING_PROMISES = {};
       var FLUTTER_NATIVEJS_PENDING_PROMISES_COUNT = -1;
 
@@ -18,7 +18,7 @@ extension HandlePromises on JavascriptRuntime {
         return idx;
       }
     """);
-    final fnMakeQPResult = evaluate("""
+    final fnMakeQPResult = evaluate("""// js
       function FLUTTER_NATIVEJS_CLEAN_PROMISE(idx) {
         delete FLUTTER_NATIVEJS_PENDING_PROMISES[idx];
       }

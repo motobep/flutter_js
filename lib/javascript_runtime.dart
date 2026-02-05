@@ -2,8 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:ffi';
 
-import 'package:flutter/foundation.dart';
-
 import 'js_eval_result.dart';
 
 class FlutterJsPlatformEmpty extends JavascriptRuntime {
@@ -64,7 +62,6 @@ class FlutterJsPlatformEmpty extends JavascriptRuntime {
 abstract class JavascriptRuntime {
   static bool debugEnabled = false;
 
-  @protected
   JavascriptRuntime init() {
     initChannelFunctions();
     _setupConsoleLog();
@@ -94,7 +91,6 @@ abstract class JavascriptRuntime {
 
   String jsonStringify(JsEvalResult jsValue);
 
-  @protected
   void initChannelFunctions();
 
   int executePendingJob();
