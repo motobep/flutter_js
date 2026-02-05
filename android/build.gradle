@@ -67,7 +67,9 @@ dependencies {
     // implementation 'com.github.p7s1digital.oasis-jsbridge-android:oasis-jsbridge-quickjs:0.12.0'
     // compile group: 'org.nanohttpd', name: 'nanohttpd', version: '2.3.0'
 
-    // for serve library from jitpack repository
-    implementation "com.github.fast-development.android-js-runtimes:fastdev-jsruntimes-quickjs:0.3.5"
+    implementation ('com.github.motobep:android-js-runtimes:master-SNAPSHOT') {
+        exclude group: 'com.github.motobep.android-js-runtimes', module: 'fastdev-jsruntimes-jsc-intl'
+    }
+    // implementation "com.github.fast-development.android-js-runtimes:fastdev-jsruntimes-quickjs:0.3.5"
     // implementation "com.github.fast-development.android-js-runtimes:fastdev-jsruntimes-jsc:0.1.3"
 }
