@@ -2,7 +2,6 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:ffi';
-import 'dart:io';
 import 'dart:isolate';
 import 'dart:typed_data';
 
@@ -21,7 +20,7 @@ part './wrapper.dart';
 typedef _JsModuleHandler = String Function(String name);
 
 /// Handler to manage unhandled promise rejection.
-typedef _JsHostPromiseRejectionHandler = void Function(dynamic reason);
+typedef JsHostPromiseRejectionHandler = void Function(dynamic reason);
 
 /// Quickjs engine for flutter.
 class QuickJsRuntime2 extends JavascriptRuntime {
@@ -44,7 +43,7 @@ class QuickJsRuntime2 extends JavascriptRuntime {
   final _JsModuleHandler? moduleHandler;
 
   /// Handler function to manage js module.
-  final _JsHostPromiseRejectionHandler? hostPromiseRejectionHandler;
+  final JsHostPromiseRejectionHandler? hostPromiseRejectionHandler;
 
   QuickJsRuntime2({
     this.moduleHandler,
@@ -254,7 +253,7 @@ class QuickJsRuntime2 extends JavascriptRuntime {
         if (channelFunctions.containsKey(channelName)) {
           return channelFunctions[channelName]!.call(jsonDecode(message));
         } else {
-          print('WARNING: No channel $channelName registered');
+          print('\x1B[33mWARNING: No channel $channelName registered\x1B[0m');
         }
         if (JavascriptRuntime.debugEnabled) {
           print('CHANNEL: $channelName - Message: $message');

@@ -15,13 +15,17 @@ JavascriptRuntime getJavascriptRuntime({
   bool forceJavascriptCoreOnAndroid = false,
   bool xhr = true,
   Map<String, dynamic>? extraArgs = const {},
+  final JsHostPromiseRejectionHandler? hostPromiseRejectionHandler,
 }) {
   JavascriptRuntime runtime;
   if ((Platform.isAndroid && !forceJavascriptCoreOnAndroid)) {
     int stackSize = extraArgs?['stackSize'] ?? 1024 * 1024;
-    runtime = QuickJsRuntime2(stackSize: stackSize);
+    runtime = QuickJsRuntime2(
+        stackSize: stackSize,
+        hostPromiseRejectionHandler: hostPromiseRejectionHandler);
   } else {
-    runtime = QuickJsRuntime2();
+    runtime = QuickJsRuntime2(
+        hostPromiseRejectionHandler: hostPromiseRejectionHandler);
   }
   runtime.enableHandlePromises();
   return runtime;

@@ -55,9 +55,16 @@ Pointer<JSValue> _jsGetPropertyValue(
 
 Pointer<JSValue> _dartToJs(Pointer<JSContext> ctx, dynamic val,
     {Map<dynamic, Pointer<JSValue>>? cache}) {
+  // print('_dartToJs: ${dj++} - (${val.runtimeType}, ${val})');
   if (val == null) return jsUNDEFINED();
-  if (val is Error) return _dartToJs(ctx, JSError(val, val.stackTrace));
-  if (val is Exception) return _dartToJs(ctx, JSError(val));
+  if (val is Error) {
+    // print('_dartToJs error');
+    return _dartToJs(ctx, JSError(val, val.stackTrace));
+  }
+  if (val is Exception) {
+    // print('_dartToJs exception');
+    return _dartToJs(ctx, JSError(val));
+  }
   if (val is JSError) {
     final ret = jsNewError(ctx);
     _definePropertyValue(ctx, ret, "name", "");
@@ -140,8 +147,11 @@ Pointer<JSValue> _dartToJs(Pointer<JSContext> ctx, dynamic val,
   return dartObject;
 }
 
+int dj = 0;
+int jd = 0;
 dynamic _jsToDart(Pointer<JSContext> ctx, Pointer<JSValue> val,
     {Map<int, dynamic>? cache}) {
+    // print('_jsToDart: ${jd++} - (${val.runtimeType}, ${val})');
   if (cache == null) cache = Map();
   final tag = jsValueGetTag(val);
   if (jsTagIsFloat64(tag) != 0) {

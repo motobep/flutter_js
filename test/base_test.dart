@@ -15,7 +15,24 @@ void main() {
     """,
       sourceUrl: '<eval>',
     );
-    var res = jsResult.stringResult;
+    var res = jsResult.rawResult;
     expect(res, equals('HELLO'));
+  });
+
+  test('Test Map', () {
+    final JavascriptRuntime javascriptRuntime =
+        getJavascriptRuntime(forceJavascriptCoreOnAndroid: false);
+
+    javascriptRuntime.onMessage('get_map', (obj) {
+      return {'key': 'value'};
+    });
+    JsEvalResult jsResult = javascriptRuntime.evaluate(
+      """// js
+    sendMessage('get_map', JSON.stringify({}));
+    """,
+      sourceUrl: '<eval>',
+    );
+    var res = jsResult.rawResult;
+    expect(res, equals({'key': 'value'}));
   });
 }
