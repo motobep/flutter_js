@@ -175,7 +175,7 @@ javascriptRuntime.onMessage('someChannelName', (dynamic args) {
 ```
 
 
-Now, if your javascript code calls `sendMessage('someChannelName', JSON.stringify([1,2,3]);` the above dart function provided as the second argument will be called
+Now, if your javascript code calls `__dartjs_sendMessage('someChannelName', JSON.stringify([1,2,3]);` the above dart function provided as the second argument will be called
 with a List containing 1, 2, 3 as it elements.
 
 

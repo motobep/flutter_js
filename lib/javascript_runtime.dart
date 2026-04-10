@@ -99,13 +99,13 @@ abstract class JavascriptRuntime {
     evaluate("""
     var console = {
       log: function() {
-        sendMessage('ConsoleLog', JSON.stringify(['log', ...arguments]));
+        __dartjs_sendMessage('ConsoleLog', JSON.stringify(['log', ...arguments]));
       },
       warn: function() {
-        sendMessage('ConsoleLog', JSON.stringify(['info', ...arguments]));
+        __dartjs_sendMessage('ConsoleLog', JSON.stringify(['info', ...arguments]));
       },
       error: function() {
-        sendMessage('ConsoleLog', JSON.stringify(['error', ...arguments]));
+        __dartjs_sendMessage('ConsoleLog', JSON.stringify(['error', ...arguments]));
       }
     }""");
     onMessage('ConsoleLog', (dynamic args) {
@@ -126,9 +126,9 @@ abstract class JavascriptRuntime {
           var timeoutIndex = '' + __NATIVE_FLUTTER_JS__setTimeoutCount;
           __NATIVE_FLUTTER_JS__setTimeoutCallbacks[timeoutIndex] =  fnTimeout;
           ;
-          // console.log(typeof(sendMessage));
+          // console.log(typeof(__dartjs_sendMessage));
           // console.log('BLA');
-          sendMessage('SetTimeout', JSON.stringify({ timeoutIndex, timeout}));
+          __dartjs_sendMessage('SetTimeout', JSON.stringify({ timeoutIndex, timeout}));
             
         } catch (e) {
           console.error('ERROR HERE',e.message);
@@ -156,19 +156,19 @@ abstract class JavascriptRuntime {
     });
   }
 
-  sendMessage({
+  /* dartjs_sendMessage({
     required String channelName,
     required List<String> args,
     String? uuid,
   }) {
     if (uuid != null) {
       evaluate(
-          "DART_TO_QUICKJS_CHANNEL_sendMessage('$channelName', '${jsonEncode(args)}', '$uuid');");
+          "DART_TO_QUICKJS_CHANNEL___dartjs_sendMessage('$channelName', '${jsonEncode(args)}', '$uuid');");
     } else {
       evaluate(
-          "DART_TO_QUICKJS_CHANNEL_sendMessage('$channelName', '${jsonEncode(args)}');");
+          "DART_TO_QUICKJS_CHANNEL___dartjs_sendMessage('$channelName', '${jsonEncode(args)}');");
     }
-  }
+  } */
 
   onMessage(String channelName, dynamic Function(dynamic args) fn) {
     setupBridge(channelName, fn);

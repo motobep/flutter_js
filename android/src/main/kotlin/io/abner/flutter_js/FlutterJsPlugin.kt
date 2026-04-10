@@ -65,76 +65,7 @@ class FlutterJsPlugin : FlutterPlugin, MethodCallHandler {
     override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
         if (call.method == "getPlatformVersion") {
             result.success("Android ${android.os.Build.VERSION.RELEASE}")
-        } /* else if (call.method == "initEngine") {
-            Log.d("FlutterJS", call.arguments.toString())
-            val engineId = call.arguments as Int
-            jsEngineMap[engineId] = JSEngine(applicationContext!!)
-            flutterJsServer.start()
-            Log.i("FLUTTERJS", "SERVER IS ALIVE: ${flutterJsServer.isAlive}")
-            Log.i("FLUTTERJS", "PORT of Running JsBridge Service: ${flutterJsServer.listeningPort}")
-            result.success(mapOf(
-                    "engineId" to engineId,
-                    "httpPort" to flutterJsServer.listeningPort,
-                    "httpPassword" to flutterJsServer.password
-            ))
-        } else if (call.method == "evaluate") {
-            Thread {
-                //runBlocking {
-                try {
-                    //Log.d("FlutterJs", call.arguments.toString())
-                    val jsCommand: String = call.argument<String>("command")!!
-                    val engineId: Int = call.argument<Int>("engineId")!!
-                    val resultJS = jsEngineMap[engineId]!!.eval(jsCommand)
-                    Handler(Looper.getMainLooper()).post {
-                        result.success(resultJS.toString())
-                        // Call the desired channel message here.
-                    }
-                } catch (e: Exception) {
-                    Handler(Looper.getMainLooper()).post {
-                        result.error("FlutterJSException", e.message, null)
-                    }
-                }
-
-                //}
-            }.start();
-        } else if (call.method == "registerChannel") {
-            val engineId: Int = call.argument<Int>("engineId")!!
-            val channelName: String = call.argument<String>("channelName")!!
-            if (jsEngineMap.containsKey(engineId)) {
-                val jsEngine = jsEngineMap[engineId]!!
-                Log.i("FlutterJS", " --- registering channel: $channelName")
-                jsEngine.registerChannel(channelName) { message ->
-//              var invokeResult: String? = null
-//              var result: Any?
-//              runBlocking {
-//                  result = methodChannel?.invokeAsync(
-//                          "sendMessage",
-//                          listOf(
-//                                  engineId,
-//                                  channelName,
-//                                  message)
-//                  )
-//              }
-//              Log.i("JS-ChannelCall", result!!::class.java.simpleName.toString())
-//              invokeResult ?: "No result yet"
-                    Handler(Looper.getMainLooper()).post {
-                        methodChannel!!.invokeMethod("sendMessage",
-                                listOf(engineId, channelName, message)
-                        )
-                    }
-                    "OK"
-                }
-            }
-        } else if (call.method == "close") {
-            if (call.hasArgument("engineId")) {
-                val engineId: Int = call.argument<Int>("engineId")!!
-                if (jsEngineMap.containsKey(engineId)) {
-                    val jsEngine = jsEngineMap[engineId]!!
-                    jsEngine.release()
-                    jsEngineMap.remove(engineId)
-                }
-            }
-        }*/ else {
+        } else {
             result.notImplemented()
         }
     }

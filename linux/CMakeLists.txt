@@ -14,6 +14,11 @@ add_library(${PLUGIN_NAME} SHARED
   "flutter_js_plugin.cc"
 )
 
+# Might work with libquickjs_c_bridge_plugin into lib/
+# add_library(lib_extra SHARED IMPORTED)
+# set_target_properties(lib_extra PROPERTIES IMPORTED_LOCATION
+#     ${your-extra-lib-location}/${ANDROID_ABI}/libextra.so)
+
 apply_standard_settings(${PLUGIN_NAME})
 target_compile_features(${PLUGIN_NAME} PUBLIC cxx_std_17)
 set_target_properties(${PLUGIN_NAME} PROPERTIES

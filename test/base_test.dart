@@ -11,7 +11,7 @@ void main() {
     });
     JsEvalResult jsResult = javascriptRuntime.evaluate(
       """// js
-    sendMessage('upper', JSON.stringify('hello'));
+    __dartjs_sendMessage('upper', JSON.stringify('hello'));
     """,
       sourceUrl: '<eval>',
     );
@@ -28,7 +28,7 @@ void main() {
     });
     JsEvalResult jsResult = javascriptRuntime.evaluate(
       """// js
-    sendMessage('get_map', JSON.stringify({}));
+    __dartjs_sendMessage('get_map', JSON.stringify({}));
     """,
       sourceUrl: '<eval>',
     );

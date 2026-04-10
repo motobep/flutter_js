@@ -245,7 +245,7 @@ class QuickJsRuntime2 extends JavascriptRuntime {
         evaluate("(key, val) => { this[key] = val; }").rawResult;
     localContext['setToGlobalObject'] = setToGlobalObject;
     (setToGlobalObject as JSInvokable).invoke([
-      'sendMessage',
+      '__dartjs_sendMessage',
       (String channelName, String message) {
         final channelFunctions = JavascriptRuntime
             .channelFunctionsRegistered[getEngineInstanceId()]!;
