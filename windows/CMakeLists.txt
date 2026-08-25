@@ -38,3 +38,11 @@ set(QUICKJSC_BRIDGE "quickjs_c_bridge.dll")
 set(QUICKJSC_BRIDGE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/shared/${QUICKJSC_BRIDGE}")
 install(CODE "file(REMOVE_RECURSE \"${INSTALL_BUNDLE_LIB_DIR}/${QUICKJSC_BRIDGE}\")" COMPONENT Runtime)
 install(FILES "${QUICKJSC_BRIDGE_PATH}" DESTINATION "${INSTALL_BUNDLE_LIB_DIR}" COMPONENT Runtime)
+
+set(flutter_js_bundled_libraries
+  "${CMAKE_CURRENT_SOURCE_DIR}/shared/libgcc_s_seh-1.dll"
+  "${CMAKE_CURRENT_SOURCE_DIR}/shared/libstdc++-6.dll"
+  "${CMAKE_CURRENT_SOURCE_DIR}/shared/libwinpthread-1.dll"
+
+  PARENT_SCOPE
+)
