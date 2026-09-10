@@ -31,8 +31,9 @@ target_link_libraries(${PLUGIN_NAME} PRIVATE flutter)
 target_link_libraries(${PLUGIN_NAME} PRIVATE PkgConfig::GTK)
 
 # List of absolute paths to libraries that should be bundled with the plugin
-set(flutter_qjs_bundled_libraries
-  "$<TARGET_FILE:libquickjs_c_bridge_plugin.so>"
+set(flutter_js_bundled_libraries
+  "${CMAKE_CURRENT_SOURCE_DIR}/shared/libquickjs_c_bridge_plugin.so"
+
   PARENT_SCOPE
 )
 
